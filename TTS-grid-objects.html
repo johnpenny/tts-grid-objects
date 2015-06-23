@@ -9,14 +9,18 @@
 	<script>
 		var itemName = prompt("What named objects do you want to grid?","Card");
 		var output = document.getElementById('output');
-		var xi = -25;
-		var dxi = xi;
-		var zi = 12;
-		var dzi = zi;
+		
+		var pad = 0;
+		
+		var xi = -15,
+			dxi = xi,
+			ixi =- xi,
+			zi = 12,
+			dzi = zi;
+			
 		save = prompt("1) Paste your save file content here\n2) Override your save with the output\n3) Load the save within the game", "");
 		var obj = JSON.parse(save);
 		
-		// loop until it reaches 10 and then increment the next 10 on another axis
 		Object.keys(obj.ObjectStates).forEach(function (el,i,arr) {
 			if (obj.ObjectStates[i]['Name'] == itemName){
 				obj.ObjectStates[i]['Locked'] = false;
@@ -27,12 +31,12 @@
 				obj.ObjectStates[i]['Transform']['posX'] = xi;
 				obj.ObjectStates[i]['Transform']['posZ'] = zi;
 				
-				if (xi > 25){
-					zi -=4;
+				if (xi > ixi){
+					zi -=4 + pad;
 					xi = dxi;
 				}
 				else {
-					xi += 3;
+					xi += 3 + pad;
 				};
 				
 			}
