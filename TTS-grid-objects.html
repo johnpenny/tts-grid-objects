@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Tabletop Simulator - Grid and object</title>
+	</head>
+	<body>
+		<pre id="output"></pre>
+	</body>
+	<script>
+		var itemName = prompt("What named objects do you want to grid?","Card");
+		var output = document.getElementById('output');
+		var xi = -25;
+		var dxi = xi;
+		var zi = 12;
+		var dzi = zi;
+		save = prompt("Paste your save file here", "");
+		var obj = JSON.parse(save);
+		
+		// loop until it reaches 10 and then increment the next 10 on another axis
+		Object.keys(obj.ObjectStates).forEach(function (el,i,arr) {
+			if (obj.ObjectStates[i]['Name'] == itemName){
+				obj.ObjectStates[i]['Locked'] = false;
+				obj.ObjectStates[i]['Transform']['rotX'] = 0;
+				obj.ObjectStates[i]['Transform']['rotY'] = 180;
+				obj.ObjectStates[i]['Transform']['rotZ'] = 180;
+				obj.ObjectStates[i]['Transform']['posY'] = 1;
+				obj.ObjectStates[i]['Transform']['posX'] = xi;
+				obj.ObjectStates[i]['Transform']['posZ'] = zi;
+				
+				if (xi > 25){
+					zi -=4;
+					xi = dxi;
+				}
+				else {
+					xi += 3;
+				};
+				
+			}
+		});
+		
+		output.innerHTML = JSON.stringify(obj, null, 4);
+				
+	</script>
+</html>
